@@ -2,9 +2,10 @@ import "./App.css";
 import gameCards from "./gameCards.json";
 
 function App() {
+  const gameGrid = gameCards.concat(gameCards).sort(() => 0.5 - Math.random());
   return (
     <section className="grid">
-      {gameCards.map((card) => (
+      {gameGrid.map((card) => (
         <div data-name={card.name} className="card">
           {card.name}
           <div className="front"></div>
