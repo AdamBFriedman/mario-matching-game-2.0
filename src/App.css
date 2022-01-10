@@ -22,7 +22,7 @@ body {
   transition: all 0.4s linear;
   transform-style: preserve-3d;
   margin: 5px;
-  cursor: url("../src/Assets/mariocursor.cur"), auto;
+  cursor: url("../src/images/mariocursor.cur"), auto;
 }
 
 .card,
@@ -40,7 +40,7 @@ body {
 
 .front {
   z-index: 2;
-  background: #fab942 url("../src/Assets/question.gif") no-repeat center center /
+  background: #fab942 url("../src/images/question.gif") no-repeat center center /
     contain;
 }
 
@@ -57,5 +57,5 @@ body {
 }
 
 .match .front {
-  background: url("../src/Assets/1up.png") no-repeat center center / contain !important;
+  background: url("../src/images/1up.png") no-repeat center center / contain !important;
 }
