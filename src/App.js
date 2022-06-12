@@ -1,14 +1,19 @@
+import { useState } from "react";
 import "./App.css";
 import { gameCards } from "./gameCards";
-
+const originalGameBoard = gameCards
+  .concat(gameCards)
+  .sort(() => 0.5 - Math.random());
 function App() {
   // Double the size of the grid
-  const gameGrid = gameCards.concat(gameCards).sort(() => 0.5 - Math.random());
+  const gameGrid = originalGameBoard;
   let firstGuess = "";
   let secondGuess = "";
   let count = 0;
   let previousTarget = null;
   let delay = 1200;
+
+  const [guessCount, setGuessCount] = useState(0);
 
   const match = () => {
     const selected = document.querySelectorAll(".selected");
@@ -27,6 +32,7 @@ function App() {
     selected.forEach((card) => {
       card.classList.remove("selected");
     });
+    setGuessCount((prev) => prev + 1);
   };
 
   const handleClick = (event) => {
@@ -60,19 +66,30 @@ function App() {
       previousTarget = clicked;
     }
   };
+
   return (
-    <section className="grid">
-      {gameGrid.map((card) => (
-        <div onClick={handleClick} data-name={card.name} className="card">
-          {card.name}
-          <div className="front"></div>
+    <>
+      <h1 style={{ color: "white" }}>Guess Count: {guessCount}</h1>
+      <section className="grid">
+        {gameGrid.map((card, index) => (
           <div
-            className="back"
-            style={{ backgroundImage: `url(${card.image})` }}
-          ></div>
-        </div>
-      ))}
-    </section>
+            onClick={(event) => {
+              handleClick(event);
+            }}
+            data-name={card.name}
+            key={index}
+            className="card"
+          >
+            {card.name}
+            <div className="front"></div>
+            <div
+              className="back"
+              style={{ backgroundImage: `url(${card.image})` }}
+            ></div>
+          </div>
+        ))}
+      </section>
+    </>
   );
 }
 
