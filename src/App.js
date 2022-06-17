@@ -114,7 +114,6 @@ function App() {
             key={index}
             className="card"
           >
-            {card.name}
             <div className="front"></div>
             <div
               className="back"
