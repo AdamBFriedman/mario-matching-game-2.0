@@ -5,6 +5,7 @@ import PiranhaPlant from "../src/images/piranhaPlant.png"
 import OneOne from "../src/images/oneOne.png"
 import EightFour from "../src/images/eightFour.png"
 import BulletBills from "../src/images/bulletBills.png"
+import MarioFireball from "../src/images/marioFireball.png"
 
 
 const originalGameBoard = gameCards
@@ -86,7 +87,7 @@ function App() {
         padding: "3em",
         background: "black",
         backgroundSize: "100% 100%",
-        backgroundImage: background === "piranha" ? `url(${PiranhaPlant})` : background === "bulletBills" ? `url(${BulletBills})` : background === "oneOne" ? `url(${OneOne})` : background === "eightFour" ? `url(${EightFour})` : "none" ,
+        backgroundImage: background === "piranha" ? `url(${PiranhaPlant})` : background === "marioFireball" ? `url(${MarioFireball})` : background === "bulletBills" ? `url(${BulletBills})` : background === "oneOne" ? `url(${OneOne})` : background === "eightFour" ? `url(${EightFour})` : "none" ,
       }}
     >
       <h1 style={{ color: "white", marginTop: 0 }}>Guess Count: {guessCount}</h1>
@@ -103,6 +104,7 @@ function App() {
         <option value="eightFour">8-4</option>
         <option value="piranha">Piranha</option>
         <option value="bulletBills">Bullet Bill</option>
+        <option value="marioFireball">Mario Fireball</option>
       </select>
 
       <section className="grid">
