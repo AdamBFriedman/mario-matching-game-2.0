@@ -1,6 +1,11 @@
 import { useState } from "react";
 import "./App.css";
 import { gameCards } from "./gameCards";
+import PiranhaPlant from "../src/images/piranhaPlant.png"
+import OneOne from "../src/images/oneOne.png"
+import EightFour from "../src/images/eightFour.png"
+
+
 const originalGameBoard = gameCards
   .concat(gameCards)
   .sort(() => 0.5 - Math.random());
@@ -67,9 +72,38 @@ function App() {
     }
   };
 
+  const [background, setBackground] = useState("none");
+
+  const handleSelect = (event) => {
+    setBackground(event.target.value);
+  };
+
   return (
-    <>
-      <h1 style={{ color: "white" }}>Guess Count: {guessCount}</h1>
+    <div
+      style={{
+        height: "100vh",
+        padding: "3em",
+        background: "black",
+        backgroundSize: "100% 100%",
+        backgroundImage: background === "piranha" ? `url(${PiranhaPlant})` : background === "oneOne" ? `url(${OneOne})` : background === "eightFour" ? `url(${EightFour})` : "none" ,
+      }}
+    >
+      <h1 style={{ color: "white", marginTop: 0 }}>Guess Count: {guessCount}</h1>
+      <label
+        style={{ color: "white", marginRight: "1em" }}
+        for="background"
+      >
+        Choose a background:
+      </label>
+
+      <select name="background" id="background" onChange={handleSelect}>
+        <option value="none">None</option>
+        <option value="oneOne">1-1</option>
+        <option value="eightFour">8-4</option>
+        <option value="piranha">Piranha</option>
+        <option value="luigi">Luigi</option>
+      </select>
+
       <section className="grid">
         {gameGrid.map((card, index) => (
           <div
@@ -89,7 +123,7 @@ function App() {
           </div>
         ))}
       </section>
-    </>
+    </div>
   );
 }
 
