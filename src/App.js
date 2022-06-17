@@ -92,13 +92,13 @@ function App() {
     >
       <h1 style={{ color: "white", marginTop: 0 }}>Guess Count: {guessCount}</h1>
       <label
-        style={{ color: "white", marginRight: "1em" }}
+        style={{ color: "white", marginRight: "1em", fontSize: "1.5em" }}
         for="background"
       >
         Choose a background:
       </label>
 
-      <select name="background" id="background" onChange={handleSelect}>
+      <select style={{padding: "0.5em", fontSize: "1.5em"}} name="background" id="background" onChange={handleSelect}>
         <option value="none">None</option>
         <option value="oneOne">1-1</option>
         <option value="eightFour">8-4</option>
