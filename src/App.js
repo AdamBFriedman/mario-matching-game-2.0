@@ -1,12 +1,20 @@
-import { useState } from "react";
-import "./App.css";
-import { gameCards } from "./gameCards";
-import PiranhaPlant from "../src/images/piranhaPlant.png"
-import OneOne from "../src/images/oneOne.png"
-import EightFour from "../src/images/eightFour.png"
-import BulletBills from "../src/images/bulletBills.png"
-import MarioFireball from "../src/images/marioFireball.png"
+import { useState } from 'react';
+import './App.css';
+import { gameCards } from './gameCards';
+import PiranhaPlant from '../src/images/piranhaPlant.png';
+import OneOne from '../src/images/oneOne.png';
+import EightFour from '../src/images/eightFour.png';
+import BulletBills from '../src/images/bulletBills.png';
+import MarioFireball from '../src/images/marioFireball.png';
 
+const optionsList = [
+  { value: 'none', display: 'None' },
+  { value: 'oneOne', display: '1-1' },
+  { value: 'eightFour', display: '8-4' },
+  { value: 'piranha', display: 'Piranha' },
+  { value: 'bulletBills', display: 'Bullet Bill' },
+  { value: 'marioFireball', display: 'Mario Fireball' },
+];
 
 const originalGameBoard = gameCards
   .concat(gameCards)
@@ -14,8 +22,8 @@ const originalGameBoard = gameCards
 function App() {
   // Double the size of the grid
   const gameGrid = originalGameBoard;
-  let firstGuess = "";
-  let secondGuess = "";
+  let firstGuess = '';
+  let secondGuess = '';
   let count = 0;
   let previousTarget = null;
   let delay = 1200;
@@ -23,21 +31,21 @@ function App() {
   const [guessCount, setGuessCount] = useState(0);
 
   const match = () => {
-    const selected = document.querySelectorAll(".selected");
+    const selected = document.querySelectorAll('.selected');
     selected.forEach((card) => {
-      card.classList.add("match");
+      card.classList.add('match');
     });
   };
 
   const resetGuesses = () => {
-    firstGuess = "";
-    secondGuess = "";
+    firstGuess = '';
+    secondGuess = '';
     count = 0;
     previousTarget = null;
 
-    let selected = document.querySelectorAll(".selected");
+    let selected = document.querySelectorAll('.selected');
     selected.forEach((card) => {
-      card.classList.remove("selected");
+      card.classList.remove('selected');
     });
     setGuessCount((prev) => prev + 1);
   };
@@ -46,10 +54,10 @@ function App() {
     const clicked = event.target;
 
     if (
-      clicked.nodeName === "SECTION" ||
+      clicked.nodeName === 'SECTION' ||
       clicked === previousTarget ||
-      clicked.parentNode.classList.contains("selected") ||
-      clicked.parentNode.classList.contains("match")
+      clicked.parentNode.classList.contains('selected') ||
+      clicked.parentNode.classList.contains('match')
     ) {
       return;
     }
@@ -58,10 +66,10 @@ function App() {
       count++;
       if (count === 1) {
         firstGuess = clicked.parentNode.dataset.name;
-        clicked.parentNode.classList.add("selected");
+        clicked.parentNode.classList.add('selected');
       } else {
         secondGuess = clicked.parentNode.dataset.name;
-        clicked.parentNode.classList.add("selected");
+        clicked.parentNode.classList.add('selected');
       }
 
       if (firstGuess && secondGuess) {
@@ -74,7 +82,7 @@ function App() {
     }
   };
 
-  const [background, setBackground] = useState("none");
+  const [background, setBackground] = useState('none');
 
   const handleSelect = (event) => {
     setBackground(event.target.value);
@@ -83,28 +91,47 @@ function App() {
   return (
     <div
       style={{
-        height: "100vh",
-        padding: "3em",
-        background: "black",
-        backgroundSize: "100% 100%",
-        backgroundImage: background === "piranha" ? `url(${PiranhaPlant})` : background === "marioFireball" ? `url(${MarioFireball})` : background === "bulletBills" ? `url(${BulletBills})` : background === "oneOne" ? `url(${OneOne})` : background === "eightFour" ? `url(${EightFour})` : "none" ,
+        height: '100vh',
+        padding: '3em',
+        background: 'black',
+        backgroundSize: '100% 100%',
+        backgroundImage:
+          background === 'piranha'
+            ? `url(${PiranhaPlant})`
+            : background === 'marioFireball'
+            ? `url(${MarioFireball})`
+            : background === 'bulletBills'
+            ? `url(${BulletBills})`
+            : background === 'oneOne'
+            ? `url(${OneOne})`
+            : background === 'eightFour'
+            ? `url(${EightFour})`
+            : 'none',
       }}
     >
-      <h1 style={{ color: "white", marginTop: 0 }}>Guess Count: {guessCount}</h1>
+      <h1 style={{ color: 'white', marginTop: 0 }}>
+        Guess Count: {guessCount}
+      </h1>
       <label
-        style={{ color: "white", marginRight: "1em", fontSize: "1.5em" }}
+        style={{
+          color: 'white',
+          marginRight: '1em',
+          fontSize: '1.5em',
+        }}
         for="background"
       >
         Choose a background:
       </label>
 
-      <select style={{padding: "0.5em", fontSize: "1.5em"}} name="background" id="background" onChange={handleSelect}>
-        <option value="none">None</option>
-        <option value="oneOne">1-1</option>
-        <option value="eightFour">8-4</option>
-        <option value="piranha">Piranha</option>
-        <option value="bulletBills">Bullet Bill</option>
-        <option value="marioFireball">Mario Fireball</option>
+      <select
+        style={{ padding: '0.5em', fontSize: '1.5em' }}
+        name="background"
+        id="background"
+        onChange={handleSelect}
+      >
+        {optionsList.map((option) => (
+          <option value={option.value}>{option.display}</option>
+        ))}
       </select>
 
       <section className="grid">
