@@ -19,6 +19,7 @@ const optionsList = [
 const originalGameBoard = gameCards
   .concat(gameCards)
   .sort(() => 0.5 - Math.random());
+
 function App() {
   // Double the size of the grid
   const gameGrid = originalGameBoard;
@@ -152,6 +153,9 @@ function App() {
           </div>
         ))}
       </section>
+      <button onClick={() => window.location.reload()}>
+        Restart
+      </button>
     </div>
   );
 }
