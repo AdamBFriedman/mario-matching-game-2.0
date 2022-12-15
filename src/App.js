@@ -30,21 +30,19 @@ function App() {
   let delay = 1200;
 
   const [guessCount, setGuessCount] = useState(0);
-
   const [matchCount, setMatchCount] = useState(0);
+  const [isGameOver, setIsGameOver] = useState(false);
 
   const match = () => {
     const selected = document.querySelectorAll('.selected');
     selected.forEach((card) => {
       card.classList.add('match');
     });
-
     setMatchCount((prev) => prev + 1);
+    if (matchCount === 11) {
+      setIsGameOver(true);
+    }
   };
-
-  if (matchCount === 12) {
-    console.log('Game over');
-  }
 
   const resetGuesses = () => {
     firstGuess = '';
@@ -127,7 +125,7 @@ function App() {
           marginRight: '1em',
           fontSize: '1.5em',
         }}
-        for="background"
+        htmlFor="background"
       >
         Choose a background:
       </label>
@@ -139,28 +137,34 @@ function App() {
         onChange={handleSelect}
       >
         {optionsList.map((option) => (
-          <option value={option.value}>{option.display}</option>
+          <option key={option.value} value={option.value}>
+            {option.display}
+          </option>
         ))}
       </select>
-
-      <section className="grid">
-        {gameGrid.map((card, index) => (
-          <div
-            onClick={(event) => {
-              handleClick(event);
-            }}
-            data-name={card.name}
-            key={index}
-            className="card"
-          >
-            <div className="front"></div>
+      {isGameOver ? (
+        <h1 style={{ color: 'white' }}>You are the winner!</h1>
+      ) : (
+        <section className="grid">
+          {gameGrid.map((card, index) => (
             <div
-              className="back"
-              style={{ backgroundImage: `url(${card.image})` }}
-            ></div>
-          </div>
-        ))}
-      </section>
+              onClick={(event) => {
+                handleClick(event);
+              }}
+              data-name={card.name}
+              key={index}
+              className="card"
+            >
+              <div className="front"></div>
+              <div
+                className="back"
+                style={{ backgroundImage: `url(${card.image})` }}
+              ></div>
+            </div>
+          ))}
+        </section>
+      )}
+
       <button onClick={() => window.location.reload()}>
         Restart
       </button>
