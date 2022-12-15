@@ -31,12 +31,20 @@ function App() {
 
   const [guessCount, setGuessCount] = useState(0);
 
+  const [matchCount, setMatchCount] = useState(0);
+
   const match = () => {
     const selected = document.querySelectorAll('.selected');
     selected.forEach((card) => {
       card.classList.add('match');
     });
+
+    setMatchCount((prev) => prev + 1);
   };
+
+  if (matchCount === 12) {
+    console.log('Game over');
+  }
 
   const resetGuesses = () => {
     firstGuess = '';
