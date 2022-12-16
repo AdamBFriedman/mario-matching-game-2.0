@@ -142,8 +142,17 @@ function App() {
           </option>
         ))}
       </select>
-      {isGameOver ? (
-        <h1 style={{ color: 'white' }}>You are the winner!</h1>
+      {!isGameOver ? (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '80%',
+          }}
+        >
+          <h1 style={{ color: 'white' }}>You are the winner!</h1>
+        </div>
       ) : (
         <section className="grid">
           {gameGrid.map((card, index) => (
