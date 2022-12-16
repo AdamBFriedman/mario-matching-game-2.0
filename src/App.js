@@ -7,6 +7,7 @@ import EightFour from '../src/images/eightFour.png';
 import BulletBills from '../src/images/bulletBills.png';
 import MarioFireball from '../src/images/marioFireball.png';
 import gameOver from '../src/images/gameOver.gif';
+import styled from 'styled-components';
 
 const optionsList = [
   { value: 'none', display: 'None' },
@@ -97,42 +98,13 @@ function App() {
   };
 
   return (
-    <div
-      style={{
-        height: '100vh',
-        padding: '3em',
-        background: 'black',
-        backgroundSize: '100% 100%',
-        backgroundImage:
-          background === 'piranha'
-            ? `url(${PiranhaPlant})`
-            : background === 'marioFireball'
-            ? `url(${MarioFireball})`
-            : background === 'bulletBills'
-            ? `url(${BulletBills})`
-            : background === 'oneOne'
-            ? `url(${OneOne})`
-            : background === 'eightFour'
-            ? `url(${EightFour})`
-            : 'none',
-      }}
-    >
-      <h1 style={{ color: 'white', marginTop: 0 }}>
-        Guess Count: {guessCount}
-      </h1>
-      <label
-        style={{
-          color: 'white',
-          marginRight: '1em',
-          fontSize: '1.5em',
-        }}
-        htmlFor="background"
-      >
+    <StyledGameWrapper background={background}>
+      <StyledGuessCount>Guess Count: {guessCount}</StyledGuessCount>
+      <StyledLabel htmlFor="background">
         Choose a background:
-      </label>
+      </StyledLabel>
 
-      <select
-        style={{ padding: '0.5em', fontSize: '1.5em' }}
+      <StyledSelect
         name="background"
         id="background"
         onChange={handleSelect}
@@ -142,28 +114,17 @@ function App() {
             {option.display}
           </option>
         ))}
-      </select>
-      {!isGameOver ? (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'column',
-            height: '80%',
-          }}
-        >
-          <h1 style={{ color: 'white' }}>You are the winner!</h1>
+      </StyledSelect>
+      {isGameOver ? (
+        <StyledGameOverWrapper>
+          <StyledGameOver>You are the winner!</StyledGameOver>
 
           <img src={gameOver} alt="Game over" />
 
-          <h1
-            onClick={() => window.location.reload()}
-            style={{ color: 'white', cursor: 'pointer' }}
-          >
+          <StyledReload onClick={() => window.location.reload()}>
             Restart?
-          </h1>
-        </div>
+          </StyledReload>
+        </StyledGameOverWrapper>
       ) : (
         <>
           <section className="grid">
@@ -189,8 +150,63 @@ function App() {
           </button>
         </>
       )}
-    </div>
+    </StyledGameWrapper>
   );
 }
+
+const StyledGameWrapper = styled.div`
+  height: 100vh;
+  padding: 3em;
+  background: black;
+  background-size: 100% 100%;
+  background-image: ${({ background }) =>
+    background === 'piranha'
+      ? `url(${PiranhaPlant})`
+      : background === 'marioFireball'
+      ? `url(${MarioFireball})`
+      : background === 'bulletBills'
+      ? `url(${BulletBills})`
+      : background === 'oneOne'
+      ? `url(${OneOne})`
+      : background === 'eightFour'
+      ? `url(${EightFour})`
+      : 'none'};
+`;
+
+const StyledGuessCount = styled.h1`
+  color: white;
+  margintop: 0;
+`;
+
+const StyledLabel = styled.label`
+  color: white;
+  margin-right: 1em;
+  font-size: 1.5em;
+`;
+
+const StyledSelect = styled.select`
+  padding: 0.5em;
+  font-size: 1.5em;
+  font-family: 'New Super Mario Font U', sans-serif;
+`;
+
+const StyledGameOverWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 80%;
+`;
+
+const StyledGameOver = styled.h1`
+  color: white;
+  font-size: 3em;
+`;
+
+const StyledReload = styled.h1`
+  color: white;
+  cursor: pointer;
+  font-size: 3em;
+`;
 
 export default App;
