@@ -6,6 +6,7 @@ import OneOne from '../src/images/oneOne.png';
 import EightFour from '../src/images/eightFour.png';
 import BulletBills from '../src/images/bulletBills.png';
 import MarioFireball from '../src/images/marioFireball.png';
+import gameOver from '../src/images/gameOver.gif';
 
 const optionsList = [
   { value: 'none', display: 'None' },
@@ -142,7 +143,7 @@ function App() {
           </option>
         ))}
       </select>
-      {isGameOver ? (
+      {!isGameOver ? (
         <div
           style={{
             display: 'flex',
@@ -153,6 +154,8 @@ function App() {
           }}
         >
           <h1 style={{ color: 'white' }}>You are the winner!</h1>
+
+          <img src={gameOver} alt="Game over" />
 
           <h1
             onClick={() => window.location.reload()}
