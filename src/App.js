@@ -142,41 +142,50 @@ function App() {
           </option>
         ))}
       </select>
-      {!isGameOver ? (
+      {isGameOver ? (
         <div
           style={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            flexDirection: 'column',
             height: '80%',
           }}
         >
           <h1 style={{ color: 'white' }}>You are the winner!</h1>
+
+          <h1
+            onClick={() => window.location.reload()}
+            style={{ color: 'white', cursor: 'pointer' }}
+          >
+            Restart?
+          </h1>
         </div>
       ) : (
-        <section className="grid">
-          {gameGrid.map((card, index) => (
-            <div
-              onClick={(event) => {
-                handleClick(event);
-              }}
-              data-name={card.name}
-              key={index}
-              className="card"
-            >
-              <div className="front"></div>
+        <>
+          <section className="grid">
+            {gameGrid.map((card, index) => (
               <div
-                className="back"
-                style={{ backgroundImage: `url(${card.image})` }}
-              ></div>
-            </div>
-          ))}
-        </section>
+                onClick={(event) => {
+                  handleClick(event);
+                }}
+                data-name={card.name}
+                key={index}
+                className="card"
+              >
+                <div className="front"></div>
+                <div
+                  className="back"
+                  style={{ backgroundImage: `url(${card.image})` }}
+                ></div>
+              </div>
+            ))}
+          </section>
+          <button onClick={() => window.location.reload()}>
+            Restart
+          </button>
+        </>
       )}
-
-      <button onClick={() => window.location.reload()}>
-        Restart
-      </button>
     </div>
   );
 }
