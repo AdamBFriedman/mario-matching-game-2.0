@@ -7,6 +7,7 @@ import EightFour from '../src/images/eightFour.png';
 import BulletBills from '../src/images/bulletBills.png';
 import MarioFireball from '../src/images/marioFireball.png';
 import gameOver from '../src/images/gameOver.gif';
+import gameOverAudio from '../src/audio/gameOver.mp3';
 import styled from 'styled-components';
 
 const optionsList = [
@@ -43,6 +44,8 @@ function App() {
     setMatchCount((prev) => prev + 1);
     if (matchCount === 11) {
       setIsGameOver(true);
+      const audio = document.getElementById('gameOverAudio');
+      audio.play();
     }
   };
 
@@ -120,6 +123,9 @@ function App() {
           <StyledGameOver>You are the winner!</StyledGameOver>
 
           <img src={gameOver} alt="Game over" />
+          <audio id="gameOverAudio">
+            <source src={gameOverAudio} type="audio/mpeg" />
+          </audio>
 
           <StyledReload onClick={() => window.location.reload()}>
             Restart?
